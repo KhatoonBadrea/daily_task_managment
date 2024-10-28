@@ -28,4 +28,26 @@ class UpdateTaskRequest extends FormRequest
             'status' => 'nullable|in:Pending,Completed',
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'title' => 'title',
+            'description' => 'description',
+            'due_date' => 'due_date',
+            'status' => 'status',
+
+
+        ];
+    }
+    public function messages()
+    {
+        return [
+            'required' => ':attribute is required',
+            'date' => 'The :attribute must be a valid date',
+            'status.in' => 'The status must be one of the following values:Pending,Completed',
+        ];
+    }
 }
+
+

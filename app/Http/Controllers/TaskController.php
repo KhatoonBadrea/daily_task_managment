@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\TaskService;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
+use App\Http\Requests\UpdateTaskStatusRequest;
 
 class TaskController extends Controller
 {
@@ -61,11 +62,16 @@ class TaskController extends Controller
     {
         return view('tasks.edit', compact('task'));
     }
+    public function editStatus(Task $task)
+    {
+        return view('tasks.editeStatus', compact('task'));
+    }
 
     /**
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
+
         $validationdata = $request->validated();
 
         $this->taskService->updateTask($task, $validationdata);
@@ -77,6 +83,14 @@ class TaskController extends Controller
     public function destroy(Task $task)
     {
         $this->taskService->deleteTask($task);
-        return redirect()->route('tasks.index')->with('success', 'تم حذف المهمة بنجاح.');
+        return redirect()->route('tasks.index');
+    }
+
+    public function updateStatus(UpdateTaskStatusRequest $request, Task $task)
+    {
+        $validationdata = $request->validated();
+        // dd($validationdata);
+        $this->taskService->updateTaskstatus($task, $validationdata);
+        return redirect()->route('tasks.index');
     }
 }

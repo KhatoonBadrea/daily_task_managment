@@ -6,33 +6,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> edit task</title>
+    <title> edit status</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body dir="rtl">
     <div class="container mt-5">
-        <h2 class="text-center mb-4"> edit task</h2>
+        <h2 class="text-center mb-4"> edit status</h2>
         
         <div class="card shadow-lg p-4">
-            <form action="{{ route('tasks.update', $task) }}" method="POST">
+            <form action="{{ route('status', $task) }}" method="POST">
                 @csrf
-                @method('PUT')
+                @method('Patch')
 
-                <div class="mb-3">
-                    <label for="title" class="form-label">title</label>
-                    <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title" value="{{ old('title', $task->title) }}">
-                    @error('title')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-
-                <div class="mb-3">
-                    <label for="description" class="form-label">description</label>
-                    <textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description">{{ old('description', $task->description) }}</textarea>
-                    @error('description')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
+               
+               
 
                 <div class="mb-3">
                     <label for="status" class="form-label">status</label>
