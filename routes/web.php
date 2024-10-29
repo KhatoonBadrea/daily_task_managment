@@ -22,6 +22,4 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('tasks', TaskController::class);
-Route::patch('status', [TaskController::class, 'updateStatus'])->name('status');
-Route::get('edit/{task}/status', [TaskController::class, 'editStatus'])->name('editstatus');
+Route::resource('tasks', TaskController::class)->middleware('auth');
