@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Events\updatTaskStatusEvent;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -45,6 +46,7 @@ class TaskService
                 'status' => $data['status'] ?? $task->status,
 
             ]));
+            event(new updatTaskStatusEvent($task));
             return $task;
         } catch (\Exception $e) {
             Log::error('Error in TaskService@updateTask: ' . $e->getMessage());
@@ -60,22 +62,6 @@ class TaskService
             $task->delete();
         } catch (\Exception $e) {
             Log::error('Error in TaskService@deleteTask: ' . $e->getMessage());
-        }
-    }
-
-    public function updateTaskstatus(Task $task, array $data)
-    {
-        try {
-
-            $task->update([
-                'status' => $data['status'] ?? $task->status,
-            ]);
-
-            // dd($task);
-            return true;
-        } catch (\Exception $e) {
-            Log::error('Error in TaskService@updateTask: ' . $e->getMessage());
-            return null;
         }
     }
 }

@@ -62,12 +62,10 @@ class TaskController extends Controller
     {
         return view('tasks.edit', compact('task'));
     }
-    public function editStatus(Task $task)
-    {
-        return view('tasks.editeStatus', compact('task'));
-    }
+    
 
     /**
+     * 
      */
     public function update(UpdateTaskRequest $request, Task $task)
     {
@@ -86,11 +84,5 @@ class TaskController extends Controller
         return redirect()->route('tasks.index');
     }
 
-    public function updateStatus(UpdateTaskStatusRequest $request, Task $task)
-    {
-        $validationdata = $request->validated();
-        // dd($validationdata);
-        $this->taskService->updateTaskstatus($task, $validationdata);
-        return redirect()->route('tasks.index');
-    }
+  
 }

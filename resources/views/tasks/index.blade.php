@@ -70,7 +70,7 @@
                         <th scope="col">Description</th>
                         <th scope="col">Due Date</th>
                         <th scope="col">Status</th>
-                        <th scope="col" colspan="4">Actions</th>
+                        <th scope="col" colspan="3">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -90,9 +90,7 @@
                         <td>
                             <a href="{{ route('tasks.edit', $task) }}" class="btn btn-warning btn-sm btn-custom">Edit</a>
                         </td>
-                        <td>
-                            <a href="{{ route('editstatus',  $task) }}" class="btn btn-primary btn-sm btn-custom">Update Status</a>
-                        </td>
+                       
                         
                         <td>
                             <form action="{{ route('tasks.destroy', $task) }}" method="POST" class="d-inline">
