@@ -2,10 +2,14 @@
 
 namespace App\Services;
 
-use App\Events\updatTaskStatusEvent;
+use Carbon\Carbon;
 use App\Models\Task;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Mail\SendServiceMail;
 use Illuminate\Support\Facades\Log;
+use App\Events\updatTaskStatusEvent;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class TaskService
 {
@@ -26,6 +30,7 @@ class TaskService
                 'description' => $data['description'],
                 'due_date' => null,
                 'status' => 'Pending',
+                'user_id' => Auth::user()->id,
             ]);
         } catch (\Exception $e) {
             Log::error('Error in TaskService@createTask: ' . $e->getMessage());
@@ -63,5 +68,22 @@ class TaskService
         } catch (\Exception $e) {
             Log::error('Error in TaskService@deleteTask: ' . $e->getMessage());
         }
+    }
+
+
+    public function sendPendingTasksEmails()
+    {
+        $users = User::with(['tasks' => function ($query) {
+            $query->where('status', 'Pending')
+                ->whereDate('created_at', Carbon::today());
+        }])->get();
+
+        foreach ($users as $user) {
+            if ($user->tasks->isNotEmpty()) {
+                Mail::to($user->email)->send(new SendServiceMail($user->tasks));
+            }
+        }
+
+        return 'Pending task emails sent to users.';
     }
 }

@@ -52,6 +52,7 @@ class StoreTaskRequest extends FormRequest
             'description' => 'required|string|max:1000',
             'status' => 'nullable|string|in:Pending,Completed',
             'due_date' => 'nullable|date|after:now',
+            'user_id' => 'required|integer'
 
         ];
     }

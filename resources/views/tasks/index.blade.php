@@ -1,6 +1,4 @@
-{{-- @extends('layouts.app')
 
-@section('content') --}}
 <div class="container">
     <style>
         .header-section {
@@ -106,4 +104,3 @@
         </div>
     </div>
 </div>
-{{-- @endsection --}}

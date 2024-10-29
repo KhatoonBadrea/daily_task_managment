@@ -38,6 +38,9 @@
                         <option value="Completed">Completed</option>
                     </select>
                 </div>
+                
+                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary w-50"> add task</button>
